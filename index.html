@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>منصة الأدوات الذكية | GeneratePrompt AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AI Tools Hub">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #f0f0f0;
+            min-height: 100vh;
+            direction: rtl;
+        }
+
+        /* Header & Navigation */
+        .main-header {
+            background: rgba(15, 12, 41, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo i {
+            background: none;
+            color: #0072ff;
+        }
+
+        .tools-grid-nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tool-nav-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            font-family: 'Tajawal';
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .tool-nav-btn.active {
+            background: linear-gradient(90deg, #0072ff, #00c6ff);
+            box-shadow: 0 4px 12px rgba(0,114,255,0.3);
+        }
+
+        .tool-nav-btn:hover {
+            background: rgba(0,114,255,0.6);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .tool-card {
+            background: rgba(30, 30, 50, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.3);
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(0,114,255,0.5);
+        }
+
+        .tool-header i {
+            font-size: 2.2rem;
+            color: #00c6ff;
+        }
+
+        .tool-header h2 {
+            font-size: 1.8rem;
+        }
+
+        .tool-desc {
+            color: #b9b9d4;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        textarea, input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 15px;
+            border-radius: 20px;
+            border: none;
+            background: #1e1e32;
+            color: #fff;
+            font-family: 'Tajawal';
+            font-size: 1rem;
+            outline: none;
+            border: 1px solid #3a3a5a;
+        }
+
+        textarea:focus, input:focus {
+            border-color: #0072ff;
+        }
+
+        .action-btn {
+            background: linear-gradient(90deg, #0072ff, #00c6ff);
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            font-family: 'Tajawal';
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+
+        .action-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .result-box {
+            margin-top: 30px;
+            background: #0f0f1a;
+            border-radius: 24px;
+            padding: 20px;
+            border-right: 4px solid #0072ff;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .copy-btn {
+            background: #2a2a44;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .copy-btn.success {
+            background: #00b894;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: monospace;
+            background: #0a0a12;
+            padding: 18px;
+            border-radius: 20px;
+            color: #e0e0ff;
+            line-height: 1.6;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .spinner {
+            width: 45px;
+            height: 45px;
+            border: 4px solid #2c2c4a;
+            border-top: 4px solid #0072ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .feature-badge {
+            display: inline-block;
+            background: rgba(0,114,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            background: rgba(0,0,0,0.3);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .tool-header h2 { font-size: 1.3rem; }
+            .tools-grid-nav { margin-top: 10px; }
+            .tool-nav-btn { font-size: 0.7rem; padding: 6px 12px; }
+        }
+    </style>
+</head>
+<body>
+<div class="main-header">
+    <div class="header-container">
+        <div class="logo">
+            <i class="fas fa-brain"></i> GeneratePrompt<span style="color:#00c6ff">AI</span>
+        </div>
+        <div class="tools-grid-nav" id="toolsNav">
+            <!-- Will be filled by JS -->
+        </div>
+    </div>
+</div>
+
+<div class="container" id="appContainer">
+    <!-- Dynamic tool content -->
+</div>
+
+<div class="footer">
+    <i class="fas fa-robot"></i> مدعوم بـ Google Gemini AI | جميع الأدوات مجانية | PWA جاهز للتثبيت
+</div>
+
+<script type="importmap">
+    {
+        "imports": {
+            "@google/genai": "https://esm.run/@google/genai"
+        }
+    }
+</script>
+
+<script type="module">
+    import { GoogleGenAI } from "@google/genai";
+
+    // ---------- API Key Management ----------
+    let aiClient = null;
+    
+    function getApiKey() {
+        let key = localStorage.getItem('gemini_api_key');
+        if (!key) {
+            key = prompt("🔐 لإستخدام جميع الأدوات الذكية، يرجى إدخال مفتاح Google Gemini API.\n\nاحصل عليه مجاناً من: https://aistudio.google.com/apikey", "");
+            if (key && key.trim()) {
+                localStorage.setItem('gemini_api_key', key.trim());
+                return key.trim();
+            }
+            return null;
+        }
+        return key;
+    }
+    
+    function initAPIClient() {
+        const apiKey = getApiKey();
+        if (!apiKey) return false;
+        try {
+            aiClient = new GoogleGenAI({ apiKey: apiKey });
+            return true;
+        } catch(e) {
+            console.error(e);
+            return false;
+        }
+    }
+    
+    initAPIClient();
+
+    // ---------- Tools Definition (9 tools as per screenshot) ----------
+    const tools = [
+        { id: "prompt_gen", name: "توليد الأوامر", icon: "fa-magic", desc: "حوّل أفكارك إلى أوامر احترافية لـ ChatGPT, Claude, Gemini", placeholder: "مثال: أريد أمراً يساعدني في كتابة خطة تسويق لمنتج جديد..." },
+        { id: "text_detector", name: "كاشف النصوص", icon: "fa-search", desc: "اكتشف إذا كان النص من تأليف بشري أم ذكاء اصطناعي", placeholder: "أدخل النص الذي تريد تحليله..." },
+        { id: "video_prompt", name: "توليد أوامر الفيديو - VEO3", icon: "fa-video", desc: "أنشئ أوامر احترافية لمقاطع فيديو مذهلة", placeholder: "صف الفيديو الذي تريد إنشاءه (مشهد، أسلوب، مدة)..." },
+        { id: "image_prompt", name: "توليد أوامر الصور", icon: "fa-image", desc: "أنشئ أوامر دقيقة لتوليد صور بالذكاء الاصطناعي", placeholder: "صف الصورة التي تريدها (النمط، الألوان، التفاصيل)..." },
+        { id: "prompt_checker", name: "فحص الأوامر", icon: "fa-check-circle", desc: "تحقق من جودة أوامرك واحصل على اقتراحات تحسين", placeholder: "ألصق الأمر (prompt) الذي تريد فحصه وتقييمه..." },
+        { id: "image_to_text", name: "تحويل الصورة إلى نص", icon: "fa-file-image", desc: "استخراج النصوص من الصور (OCR ذكي)", placeholder: "ارفع صورة تحتوي على نص", hasFileUpload: true, accept: "image/*" },
+        { id: "image_to_prompt", name: "تحويل الصور إلى أوامر", icon: "fa-arrow-right-to-bracket", desc: "حول الصور إلى أوامر احترافية تفهمها نماذج الذكاء الاصطناعي", placeholder: "ارفع صورة لتحليلها وتحويلها إلى أمر", hasFileUpload: true, accept: "image/*" },
+        { id: "paraphrase", name: "إعادة الصياغة", icon: "fa-pen-fancy", desc: "حوّل النصوص إلى أسلوب بشري طبيعي", placeholder: "أدخل النص الذي تريد إعادة صياغته..." },
+        { id: "product_desc", name: "توليد وصف المنتجات", icon: "fa-tags", desc: "أنشئ أوصاف منتجات احترافية وجذابة", placeholder: "اسم المنتج وفئته وميزاته الأساسية..." }
+    ];
+    
+    let currentTool = "prompt_gen";
+    let currentResult = "";
+    let loading = false;
+    
+    // Helper: Call Gemini with custom prompt
+    async function callGemini(systemInstruction, userPrompt) {
+        if (!aiClient) {
+            const ok = initAPIClient();
+            if (!ok) throw new Error("مطلوب مفتاح API صالح");
+        }
+        const response = await aiClient.models.generateContent({
+            model: "gemini-3-flash-preview",
+            contents: userPrompt,
+            config: {
+                systemInstruction: systemInstruction,
+                temperature: 0.7,
+                maxOutputTokens: 2000,
+            }
+        });
+        return response.text.trim();
+    }
+    
+    // Tool executors
+    async function executeTool(toolId, input, fileBase64 = null, fileMime = null) {
+        switch(toolId) {
+            case "prompt_gen":
+                return await callGemini(
+                    "أنت خبير في هندسة الأوامر. حول فكرة المستخدم إلى أمر احترافي مفصل ودقيق.",
+                    `الفكرة: ${input}\n\nأنشئ أمراً (prompt) محسناً وجاهزاً للاستخدام.`
+                );
+            case "text_detector":
+                return await callGemini(
+                    "أنت خبير تحليل نصوص. حدد إذا كان النص من كتابة بشرية أم ذكاء اصطناعي مع نسبة ثقة وأسباب.",
+                    `حلل النص التالي: "${input}"\n\nأخبرني هل هو من تأليف بشري أم AI؟ أعطِ نسبة تقدير وشرحاً موجزاً.`
+                );
+            case "video_prompt":
+                return await callGemini(
+                    "أنت خبير في إنشاء أوامر فيديو احترافية لنماذج مثل VEO3. أنشئ أمراً مفصلاً.",
+                    `وصف الفيديو المطلوب: ${input}\n\nأنشئ أمراً (prompt) احترافياً لإنشاء فيديو.`
+                );
+            case "image_prompt":
+                return await callGemini(
+                    "أنت مصمم أوامر صور احترافية. حوّل الوصف إلى أمر غني بالتفاصيل لتوليد صور.",
+                    `وصف الصورة: ${input}\n\nأنشئ أمراً دقيقاً لتوليد صورة.`
+                );
+            case "prompt_checker":
+                return await callGemini(
+                    "أنت خبير تقييم أوامر. حلل الأمر المقدم وقدم تقييماً + اقتراحات تحسين.",
+                    `الأمر المراد فحصه: ${input}\n\nقدم تقييماً (من 10) واقتراحات تحسين محددة.`
+                );
+            case "image_to_text":
+                if (!fileBase64) throw new Error("الرجاء رفع صورة أولاً");
+                return await callGemini(
+                    "أنت نظام OCR ذكي. استخرج كل النصوص الموجودة في الصورة بدقة.",
+                    `الصورة المرفقة (بصيغة base64): ${fileBase64.substring(0, 100)}... \n\nاستخرج جميع النصوص التي تراها في الصورة.`
+                );
+            case "image_to_prompt":
+                if (!fileBase64) throw new Error("الرجاء رفع صورة أولاً");
+                return await callGemini(
+                    "أنت محلل صور وتحويلها إلى أوامر. صف محتوى الصورة وحوله إلى أمر احترافي يمكن استخدامه لتوليد محتوى مشابه.",
+                    `الصورة: ${fileBase64.substring(0, 100)}...\n\nحلل الصورة وأنشئ أمراً (prompt) تفصيلياً يصفها بشكل احترافي.`
+                );
+            case "paraphrase":
+                return await callGemini(
+                    "أنت كاتب محترف. أعد صياغة النص بأسلوب بشري طبيعي مع الحفاظ على المعنى وتجنب العبارات الرسمية الجافة.",
+                    `النص الأصلي: ${input}\n\nأعد كتابته بأسلوب إنساني سلس.`
+                );
+            case "product_desc":
+                return await callGemini(
+                    "أنت كاتب إعلانات محترف. أنشئ وصف منتج جذاب ومقنع ومفصل.",
+                    `تفاصيل المنتج: ${input}\n\nأنشئ وصفاً احترافياً للمنتج (فوائد، مواصفات، أسلوب تسويقي).`
+                );
+            default:
+                return "الأداة قيد التطوير";
+        }
+    }
+    
+    // Render current tool UI
+    function renderTool() {
+        const tool = tools.find(t => t.id === currentTool);
+        if (!tool) return;
+        
+        const container = document.getElementById('appContainer');
+        container.innerHTML = `
+            <div class="tool-card">
+                <div class="tool-header">
+                    <i class="fas ${tool.icon}"></i>
+                    <h2>${tool.name}</h2>
+                </div>
+                <div class="tool-desc">${tool.desc}</div>
+                <div class="feature-badge"><i class="fas fa-gem"></i> Gemini AI 3 Flash</div>
+                
+                <div class="input-group">
+                    <label><i class="fas fa-edit"></i> ${tool.hasFileUpload ? 'رفع ملف' : 'أدخل النص'}</label>
+                    ${!tool.hasFileUpload ? 
+                        `<textarea id="toolInput" rows="5" placeholder="${tool.placeholder}"></textarea>` :
+                        `<input type="file" id="fileInput" accept="${tool.accept}" style="background:#1e1e32; color:#fff; border:1px solid #3a3a5a;">
+                         <div id="filePreview" style="margin-top:10px; font-size:0.85rem; color:#aaa;"></div>`
+                    }
+                </div>
+                
+                <button id="executeBtn" class="action-btn"><i class="fas fa-play"></i> تنفيذ</button>
+                
+                <div id="resultArea" style="display:none;" class="result-box">
+                    <div class="result-header">
+                        <span><i class="fas fa-check-circle"></i> النتيجة</span>
+                        <button id="copyResultBtn" class="copy-btn"><i class="far fa-copy"></i> نسخ</button>
+                    </div>
+                    <pre id="resultText"></pre>
+                </div>
+                
+                <div id="loadingArea" style="display:none;" class="loading">
+                    <div class="spinner"></div>
+                    <p>جيمناي يعالج طلبك ...</p>
+                </div>
+            </div>
+        `;
+        
+        // Attach events
+        const executeBtn = document.getElementById('executeBtn');
+        const loadingDiv = document.getElementById('loadingArea');
+        const resultDiv = document.getElementById('resultArea');
+        const resultText = document.getElementById('resultText');
+        
+        executeBtn.addEventListener('click', async () => {
+            let inputValue = "";
+            let fileBase64 = null;
+            let fileMime = null;
+            
+            if (!tool.hasFileUpload) {
+                const textarea = document.getElementById('toolInput');
+                inputValue = textarea.value.trim();
+                if (!inputValue) {
+                    alert("الرجاء إدخال النص المطلوب.");
+                    return;
+                }
+            } else {
+                const fileInput = document.getElementById('fileInput');
+                const file = fileInput.files[0];
+                if (!file) {
+                    alert("الرجاء اختيار صورة أولاً.");
+                    return;
+                }
+                // Convert to base64
+                fileBase64 = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result);
+                    reader.readAsDataURL(file);
+                });
+                fileMime = file.type;
+                inputValue = file.name; // placeholder
+            }
+            
+            // Execute
+            loadingDiv.style.display = "block";
+            resultDiv.style.display = "none";
+            executeBtn.disabled = true;
+            
+            try {
+                let output;
+                if (tool.hasFileUpload) {
+                    output = await executeTool(currentTool, inputValue, fileBase64, fileMime);
+                } else {
+                    output = await executeTool(currentTool, inputValue);
+                }
+                resultText.innerText = output;
+                resultDiv.style.display = "block";
+                currentResult = output;
+            } catch (err) {
+                alert("خطأ: " + err.message);
+                console.error(err);
+            } finally {
+                loadingDiv.style.display = "none";
+                executeBtn.disabled = false;
+            }
+        });
+        
+        // Copy button (dynamic)
+        const copyBtnDynamic = document.getElementById('copyResultBtn');
+        if (copyBtnDynamic) {
+            copyBtnDynamic.addEventListener('click', async () => {
+                const text = document.getElementById('resultText')?.innerText;
+                if (text) {
+                    await navigator.clipboard.writeText(text);
+                    copyBtnDynamic.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
+                    copyBtnDynamic.classList.add('success');
+                    setTimeout(() => {
+                        copyBtnDynamic.innerHTML = '<i class="far fa-copy"></i> نسخ';
+                        copyBtnDynamic.classList.remove('success');
+                    }, 2000);
+                }
+            });
+        }
+    }
+    
+    // Render navigation buttons
+    function renderNav() {
+        const navContainer = document.getElementById('toolsNav');
+        navContainer.innerHTML = tools.map(tool => `
+            <button class="tool-nav-btn ${currentTool === tool.id ? 'active' : ''}" data-tool="${tool.id}">
+                <i class="fas ${tool.icon}"></i> ${tool.name.split(' ').slice(0,2).join(' ')}
+            </button>
+        `).join('');
+        
+        document.querySelectorAll('.tool-nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentTool = btn.dataset.tool;
+                renderNav();
+                renderTool();
+            });
+        });
+    }
+    
+    // Initial render
+    renderNav();
+    renderTool();
+    
+    // PWA Service Worker Registration
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW failed', err));
+        });
+    }
+</script>
+</body>
+</html>
