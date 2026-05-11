@@ -1,0 +1,15 @@
+{
+  "name": "TUT Fashion AI",
+  "short_name": "TUT AI",
+  "description": "أدوات ذكاء اصطناعي للأزياء مستوحاة من توت فاشون",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#0A0A0A",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    { "src": "icons/icon-72.png", "sizes": "72x72", "type": "image/png" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
